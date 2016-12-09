@@ -26,12 +26,16 @@ class SampleTest extends WP_UnitTestCase {
 		$this->assertEquals( $get, 'this' );
 
 		sleep(20);
+		
+		$raw = get_option( '_transient_unclean' );
+		$this->assertEquals( $raw, 'this' );
+		
+		$raw_timeout = get_option( '_transient_timeout_unclean' );
+		$this->assertNotFalse( $raw_timeout );
+		$this->assertLessThan( time(), $raw_timeout );
 
 		$fresh = get_transient( 'unclean' );
 		$this->assertFalse( $fresh );
-
-		$raw = get_option( '_transient_unclean' );
-		$this->assertEquals( $raw, 'this' );
 	}
 
 	function test_after_cleaning() {
