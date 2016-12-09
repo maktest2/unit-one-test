@@ -25,10 +25,11 @@ env:
     - WP_VERSION=latest WP_MULTISITE=0
     - WP_VERSION=latest WP_MULTISITE=1
     # earliest supported version with a non-buggy unit test suite:
-    - WP_VERSION=3.7 WP_MULTISITE=0
-    - WP_VERSION=3.7 WP_MULTISITE=1
+    - WP_VERSION=3.8 WP_MULTISITE=0
+    - WP_VERSION=3.8 WP_MULTISITE=1
 
 matrix:
+   fast_finish: true
    exclude:
         # don't test 3.7 on hiphop:
         - php: hhvm
