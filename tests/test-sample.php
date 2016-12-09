@@ -17,8 +17,24 @@ class SampleTest extends WP_UnitTestCase {
 		// Replace this with some actual testing code.
 		//$this->assertTrue( true );
 	}
+	
+	function test_before_cleaning() {
+		$set = set_transient( 'unclean', 'this', 5 );
+		$this->assertTrue( $set );
 
-	function test_cleaning() {
+		$get = get_transient( 'unclean' );
+		$this->assertEquals( $get, 'this' );
+
+		sleep(20);
+
+		$fresh = get_transient( 'unclean' );
+		$this->assertFalse( $fresh );
+
+		$raw = get_option( '_transient_unclean' );
+		$this->assertEquals( $raw, 'this' );
+	}
+
+	function test_after_cleaning() {
 		$set = set_transient( 'row', 'that', 5 );
 		$this->assertTrue( $set );
 
@@ -34,5 +50,8 @@ class SampleTest extends WP_UnitTestCase {
 
 		$raw = get_option( '_transient_timeout_row' );
 		$this->assertFalse( $raw );
+
+		$raw_value = get_option( '_transient_row' );
+		$this->assertFalse( $raw_value );
 	}
 }
