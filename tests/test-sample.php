@@ -31,5 +31,8 @@ class SampleTest extends WP_UnitTestCase {
 
 		$fresh = get_transient( 'row' );
 		$this->assertFalse( $fresh );
+
+		$raw = get_option( '_transient_timeout_row' );
+		$this->assertFalse( $raw );
 	}
 }
